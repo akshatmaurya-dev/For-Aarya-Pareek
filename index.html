@@ -69,14 +69,13 @@ button {
     left: 50%;
     transform: translateX(-50%);
     top: 90px;
-    transition: opacity 0.6s ease;
 }
 
 #plea {
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 1rem;
     color: #ffd6dd;
-    min-height: 22px;
+    min-height: 26px;
 }
 
 #response {
@@ -109,6 +108,7 @@ button {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.5s ease;
+    z-index: 10;
 }
 #finalScreen.show { opacity: 1; }
 </style>
@@ -136,16 +136,22 @@ button {
 
 <script>
 const text = "I really, really love you… more than I’ve ever been able to say out loud.";
+
 const pleas = [
     "Please think once more 🥺",
-    "I promise I’ll make you smile ❤️",
-    "Just give us a chance 🌸",
-    "I really mean this, Aarya 💖",
-    "My heart chose you 🧸"
+    "I promise I’ll always respect you ❤️",
+    "You genuinely mean a lot to me 🌸",
+    "I’d love to make you smile every day 😊",
+    "No pressure… just my honest heart 💖",
+    "I’ll wait, because you’re worth it 🫶",
+    "Even this moment means everything to me ✨",
+    "I care about you more than you know 🥹",
+    "My heart chose you, quietly and truly 🧸",
+    "Whatever you choose, I’m glad I tried 💕"
 ];
 
 let i = 0;
-let noTries = 0;
+let noIndex = 0;
 
 /* Typing effect */
 (function typeEffect(){
@@ -155,19 +161,15 @@ let noTries = 0;
     }
 })();
 
-/* No button logic */
+/* Endless No button */
 function handleNo(){
-    noTries++;
-    plea.innerText = pleas[Math.min(noTries - 1, pleas.length - 1)];
+    plea.innerText = pleas[noIndex % pleas.length];
+    noIndex++;
 
-    if(noTries >= 5){
-        noBtn.style.opacity = "0";
-        noBtn.style.pointerEvents = "none";
-        return;
-    }
-
-    noBtn.style.left = Math.random()*80 + "%";
-    noBtn.style.top  = 90 + Math.random()*40 + "px";
+    const left = Math.random() * 80;
+    const top  = 90 + Math.random() * 40;
+    noBtn.style.left = left + "%";
+    noBtn.style.top  = top + "px";
 }
 
 /* YES button */
@@ -183,9 +185,10 @@ function sayYes(){
         finalScreen.classList.add("show");
     }, 1500);
 
+    // 🎵 OPEN SONG AT 0:44 EXACTLY
     setTimeout(() => {
         window.open(
-          "https://www.youtube.com/watch?v=nyuo9-OjNNg",
+          "https://www.youtube.com/watch?v=nyuo9-OjNNg&t=44s",
           "_blank"
         );
     }, 3000);
