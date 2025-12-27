@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Aarya ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #2b0014, #000);
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    text-align: center;
+    transition: background 1.5s ease;
+}
+
+body.bright {
+    background: radial-gradient(circle at top, #ff9a9e, #ff3f6c);
+}
+
+.card {
+    width: 92%;
+    max-width: 420px;
+    background: rgba(0,0,0,0.4);
+    padding: 28px 20px 32px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+/* Shake + Glow */
+@keyframes shake {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-6px,4px); }
+    50% { transform: translate(6px,-4px); }
+    75% { transform: translate(-4px,6px); }
+    100% { transform: translate(0,0); }
+}
+@keyframes glow {
+    from { box-shadow: 0 0 10px rgba(255,75,92,0.4); }
+    to { box-shadow: 0 0 40px rgba(255,75,92,1); }
+}
+.shake { animation: shake 0.6s; }
+.glow { animation: glow 1s infinite alternate; }
+
+h1 { font-size: 2.2rem; }
+#typedText { font-size: 1.1rem; min-height: 70px; }
+h2 { font-size: 1.4rem; margin-top: 15px; }
+
+.buttons {
+    margin-top: 28px;
+    position: relative;
+    height: 140px;
+}
+
+button {
+    width: 140px;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.yes {
+    background: linear-gradient(135deg, #ff4b5c, #ff758c);
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+}
+
+.no {
+    background: white;
+    color: #ff4b5c;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 90px;
+    transition: opacity 0.6s ease;
+}
+
+#plea {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #ffd6dd;
+    min-height: 22px;
+}
+
+#response {
+    margin-top: 18px;
+    font-size: 1.3rem;
+    display: none;
+}
+
+/* Floating hearts & teddies */
+.float {
+    position: absolute;
+    bottom: -30px;
+    animation: floatUp 7s linear infinite;
+}
+@keyframes floatUp {
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Final screen */
+#finalScreen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #ff9a9e, #ff3f6c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease;
+    z-index: 10;
+}
+#finalScreen.show { opacity: 1; }
+
+/* Music container */
+#music {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+</style>
+</head>
+
+<body>
+
+<div id="music"></div>
+
+<div class="card" id="card">
+    <h1>Aarya Pareek ❤️</h1>
+    <div id="typedText"></div>
+    <h2>Will you be mine? 💕</h2>
+
+    <div class="buttons">
+        <button class="yes" onclick="sayYes()">Yes 💖</button>
+        <button class="no" id="noBtn" onmouseenter="handleNo()" ontouchstart="handleNo()">No 🙈</button>
+    </div>
+
+    <div id="plea"></div>
+    <div id="response"></div>
+</div>
+
+<div id="finalScreen">She said YES 💖</div>
+
+<script>
+const text = "Every time you smile, my heart forgets how to behave.";
+const pleas = [
+    "Please think once more 🥺",
+    "I promise I’ll make you smile ❤️",
+    "Just give us a chance 🌸",
+    "I really mean this, Aarya 💖",
+    "My heart chose you 🧸"
+];
+
+let i = 0;
+let noTries = 0;
+let musicStarted = false;
+
+/* Typing */
+(function typeEffect(){
+    if(i < text.length){
+        typedText.innerHTML += text.charAt(i++);
+        setTimeout(typeEffect, 45);
+    }
+})();
+
+/* No button */
+function handleNo(){
+    noTries++;
+    plea.innerText = pleas[Math.min(noTries - 1, pleas.length - 1)];
+
+    if(noTries >= 5){
+        noBtn.style.opacity = "0";
+        noBtn.style.pointerEvents = "none";
+        return;
+    }
+
+    noBtn.style.left = Math.random()*80 + "%";
+    noBtn.style.top  = 90 + Math.random()*40 + "px";
+}
+
+/* YES */
+function sayYes(){
+    if(!musicStarted){
+        musicStarted = true;
+        document.getElementById("music").innerHTML =
+        `<iframe src="https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=1&loop=1&playlist=nyuo9-OjNNg"
+            allow="autoplay"
+            frameborder="0"></iframe>`;
+    }
+
+    document.body.classList.add("bright");
+    card.classList.add("shake","glow");
+
+    response.style.display = "block";
+    response.innerHTML = "YAY!!! 🥰 My heart is officially yours, Aarya 💖";
+
+    spawnCute();
+    setTimeout(()=>finalScreen.classList.add("show"),2000);
+}
+
+/* Hearts + Teddies */
+function spawnCute(){
+    setInterval(()=>{
+        const el = document.createElement("div");
+        el.className = "float";
+        el.innerHTML = Math.random() > 0.5 ? "❤️" : "🧸";
+        el.style.left = Math.random()*100 + "vw";
+        el.style.fontSize = Math.random()*20 + 22 + "px";
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(),7000);
+    },350);
+}
+</script>
+
+</body>
+</html>
